@@ -40,7 +40,7 @@ publish {
     userOrg = 'tubb'
     groupId = 'com.tubb'
     artifactId = 'multi-channel'
-    version = '0.0.4'
+    version = '0.0.6'
     description = 'Gradle Multi Channel Plugin'
     website = "https://github.com/TUBB/${rootProject.name}"
 }

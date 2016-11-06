@@ -70,6 +70,13 @@ public class AppChannelPlugin implements Plugin<Project>{
                 output.outputFile = new File(targetDir, targetFileName)
             }
         }
+        def zipalignTasks = project.tasks.findAll { task ->
+            task.name.contains('zipalign')
+        }
+        zipalignTasks.each { task ->
+            String targetDir = outputDir != null ? outputDir : ''
+            task.outputFile = new File("${project.rootDir}${File.separator}${targetDir}", task.outputFile.name)
+        }
     }
 
     public void buildChannel(Project project) {
@@ -83,7 +90,7 @@ public class AppChannelPlugin implements Plugin<Project>{
             def buildProductFlavor = appchannel.buildProductFlavor
             File channelFile = new File(channelFilePath)
             if (channelFile.isDirectory() || !channelFile.exists()) {
-                throw new IllegalArgumentException('channelFilePath is not a valid file path')
+                throw new IllegalArgumentException("channelFilePath [${channelFilePath}] is not a valid file path")
             }
             if (buildProductFlavor == null) {
                 throw new IllegalArgumentException('customProductFlavor cant not be null')
